@@ -10,10 +10,9 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Header } from "@/components/ui/header";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -77,102 +76,6 @@ export default function App() {
         icon: <CircleCheckIcon />,
       });
       return data;
-
-      // if (method === "GET") {
-      //   const response = await fetch(
-      //     process.env.NEXT_PUBLIC_PROXY_API as string,
-      //     {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify({
-      //         method,
-      //         url,
-      //         token,
-      //       }),
-      //     }
-      //   );
-      //   const data = await response.json();
-
-      //   if (!response.ok) {
-      //     return null;
-      //   }
-
-      //   return data;
-      // } else if (method === "POST") {
-      //   const formattedPayload = JSON.parse(payload.trim());
-      //   const response = await fetch(
-      //     process.env.NEXT_PUBLIC_PROXY_API as string,
-      //     {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify({
-      //         method,
-      //         url,
-      //         token,
-      //         payload: formattedPayload,
-      //       }),
-      //     }
-      //   );
-      //   const data = await response.json();
-
-      //   if (!response.ok) {
-      //     return null;
-      //   }
-
-      //   return data;
-      // } else if (method === "PUT") {
-      //   const formattedPayload = JSON.parse(payload.trim());
-      //   const response = await fetch(
-      //     process.env.NEXT_PUBLIC_PROXY_API as string,
-      //     {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify({
-      //         method,
-      //         url,
-      //         token,
-      //         payload: formattedPayload,
-      //       }),
-      //     }
-      //   );
-      //   const data = await response.json();
-
-      //   if (!response.ok) {
-      //     return null;
-      //   }
-
-      //   return data;
-      // } else if (method === "DELETE") {
-      //   const response = await fetch(
-      //     process.env.NEXT_PUBLIC_PROXY_API as string,
-      //     {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify({
-      //         method,
-      //         url,
-      //         token,
-      //       }),
-      //     }
-      //   );
-      //   const data = await response.json();
-
-      //   if (!response.ok) {
-      //     return null;
-      //   }
-
-      //   return data;
-      // } else {
-      //   throw new Error("This Http method is not supported.");
-      // }
     },
     onError: (err) => {
       console.log(err);
@@ -191,7 +94,7 @@ export default function App() {
     <>
       <Header />
       <main className="w-full flex flex-col container mx-auto">
-        <section className="my-8 w-full">
+        <Card className="my-8 w-full rounded p-4">
           <Tabs defaultValue="auth" className="flex-1">
             <TabsList>
               {/* <TabsTrigger value="params">Params</TabsTrigger>
@@ -248,10 +151,13 @@ export default function App() {
               </Card>
             </TabsContent> */}
             <TabsContent value="body" className="flex-1 mt-4">
-              <Card className="rounded">
-                <CardContent className="p-4">
+              <Card className="rounded gap-2">
+                <CardHeader>
+                  <CardTitle className="font-bold">Payload</CardTitle>
+                </CardHeader>
+                <CardContent>
                   <Textarea
-                    placeholder="Request body (JSON Format)"
+                    placeholder="Request Body (JSON Format)"
                     className="min-h-[200px] font-mono resize-none"
                     onChange={(e) => setPayload(e.target.value)}
                   />
@@ -259,8 +165,11 @@ export default function App() {
               </Card>
             </TabsContent>
             <TabsContent value="auth" className="flex-1 mt-4">
-              <Card className="rounded">
-                <CardContent className="p-4">
+              <Card className="rounded gap-2">
+                <CardHeader>
+                  <CardTitle className="font-bold">Authorization</CardTitle>
+                </CardHeader>
+                <CardContent>
                   <Select defaultValue="none" onValueChange={setAuth}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Auth Type" />
@@ -272,7 +181,6 @@ export default function App() {
                   </Select>
 
                   <div className="mt-4">
-                    <Label htmlFor="token">Token</Label>
                     <div className="relative">
                       <Input
                         id="password"
@@ -301,9 +209,9 @@ export default function App() {
               </Card>
             </TabsContent>
           </Tabs>
-        </section>
+        </Card>
 
-        <section className="w-full border p-4 rounded shadow">
+        <Card className="w-full border p-4 rounded shadow">
           <div>
             <h3 className="font-bold text-xl mb-4">Request</h3>
             <div className="flex items-center gap-4">
@@ -365,7 +273,7 @@ export default function App() {
               </Card>
             )}
           </div>
-        </section>
+        </Card>
       </main>
     </>
   );
